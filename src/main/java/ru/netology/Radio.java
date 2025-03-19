@@ -44,15 +44,21 @@ public class Radio {
         }
     }
 
-    public void increaseStation() {
+    public void nextStation() {
         if (currentStation < 9) {
             currentStation = currentStation + 1;
         }
+        if (currentStation == 9) {
+            currentStation = 0;
+        }
     }
 
-    public void decreaseStation() {
+    public void prevStation() {
         if (currentStation > 0) {
             currentStation = currentStation - 1;
+        }
+        if (currentStation == 0) {
+            currentStation = 9;
         }
     }
 
