@@ -17,7 +17,7 @@ public class RadioTest {
     public void shouldSetStationAbove() {
         Radio radio = new Radio();
         radio.setCurrentStation(10);
-        int expected = 0;
+        int expected = -1; // невозможно установить станцию с номером больше 9
         int actual = radio.getCurrentStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -25,8 +25,8 @@ public class RadioTest {
     @Test
     public void shouldSetStationBelow() {
         Radio radio = new Radio();
-        radio.setCurrentStation(-1);
-        int expected = 0;
+        radio.setCurrentStation(-2);
+        int expected = -1; // невозможно установить станцию с номером меньше 0
         int actual = radio.getCurrentStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -69,11 +69,21 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldNextStationAbove() {
+    public void shouldNextStationTop() {
         Radio radio = new Radio();
         radio.setCurrentStation(9);
         radio.nextStation();
         int expected = 0;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNextStationPenultimate() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(8);
+        radio.nextStation();
+        int expected = 9;
         int actual = radio.getCurrentStation();
         Assertions.assertEquals(expected, actual);
     }
@@ -89,11 +99,31 @@ public class RadioTest {
     }
 
     @Test
+    public void shouldPrevStationPenultimate() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(1);
+        radio.prevStation();
+        int expected = 0;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void shouldPrevStationBelow() {
         Radio radio = new Radio();
         radio.setCurrentStation(0);
         radio.prevStation();
         int expected = 9;
+        int actual = radio.getCurrentStation();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldPrevStationLower() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(-10);
+        radio.prevStation();
+        int expected = -1; // невозможно установить старнцию с отрицательным номером
         int actual = radio.getCurrentStation();
         Assertions.assertEquals(expected, actual);
     }

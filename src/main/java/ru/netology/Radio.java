@@ -5,20 +5,15 @@ public class Radio {
     private int currentVolume;
 
     public void setCurrentStation(int newCurrentStation) {
-        if (newCurrentStation < 0) {
-            return;
-        }
-        if (newCurrentStation > 9) {
+        if (newCurrentStation < 0 || newCurrentStation > 9) {
+            currentStation = -1;  // ошибка в установке радиостанции
             return;
         }
         currentStation = newCurrentStation;
     }
 
     public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume < 0) {
-            return;
-        }
-        if (newCurrentVolume > 100) {
+        if (newCurrentVolume < 0 || newCurrentVolume > 100) {
             return;
         }
         currentVolume = newCurrentVolume;
@@ -47,8 +42,7 @@ public class Radio {
     public void nextStation() {
         if (currentStation < 9) {
             currentStation = currentStation + 1;
-        }
-        if (currentStation == 9) {
+        } else if (currentStation == 9) {
             currentStation = 0;
         }
     }
@@ -56,10 +50,10 @@ public class Radio {
     public void prevStation() {
         if (currentStation > 0) {
             currentStation = currentStation - 1;
-        }
-        if (currentStation == 0) {
-            currentStation = 9;
+        } else {
+            if (currentStation == 0) {
+                currentStation = 9;
+            }
         }
     }
-
 }
